@@ -34,26 +34,37 @@ class WebScrapeClass():
     def descriptions(self) -> list: # Returns a list
         descriptions = self.bsoup.findAll("p", attrs = {"class": "description card-text"})
         return descriptions
+    
+    def brain_metastases(self) -> list:
+        brain_metastases_var = self.bsoup.findAll("p")
+        return brain_metastases_var
+
 
 # Main program is indicated with the below if statement
 if __name__ == "__main__":
-    site = "https://webscraper.io/test-sites/e-commerce/allinone/computers/laptops" # Actual site
-    site_to_scrape = WebScrapeClass(site) # Object of relative Class
+    #site = "https://webscraper.io/test-sites/e-commerce/allinone/computers/laptops" # Actual site
+    brain_metastases_mri_info = "https://mrimaster.com/brain-metastases/"
+    #site_to_scrape = WebScrapeClass(site) # Object of relative Class
+    site_to_scrape = WebScrapeClass(brain_metastases_mri_info) # Object of relative Class
 
-    products = site_to_scrape.products() # Call of Methods and assigned it in a variable
-    prices = site_to_scrape.prices() # Call of Methods and assigned it in a variable
-    descriptions = site_to_scrape.descriptions() # Call of Methods and assigned it in a variable
+    # products = site_to_scrape.products() # Call of Methods and assigned it in a variable
+    # prices = site_to_scrape.prices() # Call of Methods and assigned it in a variable
+    # descriptions = site_to_scrape.descriptions() # Call of Methods and assigned it in a variable
+    brain_metastases = site_to_scrape.brain_metastases()
 
-    file = open("scraped_data.csv", "w") # Opens a file to save the data a forge the data set
-    writer = csv.writer(file) # Writes the data i na csv format
-    writer.writerow(["Products", "Prices", "Descriptions"]) # Index of rows, Column names
+    # file = open("scraped_data.csv", "w") # Opens a file to save the data a forge the data set
+    # writer = csv.writer(file) # Writes the data i na csv format
+    # writer.writerow(["Products", "Prices", "Descriptions"]) # Index of rows, Column names
 
-    counter = 0 # Counter
-    for product, price, description in zip(products, prices, descriptions): # Iterates in 3 lists
-        print(f"Product {counter}") # Prints
-        print(f"Name: {product.text}\nPrice: {price.text}\nDescription: {description.text}") # Prints
-        writer.writerow([product.text, price.text, description.text]) # Writes the actual data into the csv
-        print("***") # Prints
-        counter += 1 # Counting...
+    # counter = 0 # Counter
+    # for product, price, description in zip(products, prices, descriptions): # Iterates in 3 lists
+    #     print(f"Product {counter}") # Prints
+    #     print(f"Name: {product.text}\nPrice: {price.text}\nDescription: {description.text}") # Prints
+    #     writer.writerow([product.text, price.text, description.text]) # Writes the actual data into the csv
+    #     print("***") # Prints
+    #     counter += 1 # Counting...
     
-    file.close() # Closes the file
+    # file.close() # Closes the file
+
+    for image in brain_metastases:
+        print(image)
